@@ -52,7 +52,7 @@ public class CKQuery: CKCodable {
         }).bridge()
         
         // Create Sort Descriptor Dictionaries
-        queryDictionary["sortBy"] = sortDescriptors.flatMap { (sortDescriptor) -> [String: Any]? in
+        queryDictionary["sortBy"] = sortDescriptors.compactMap { (sortDescriptor) -> [String: Any]? in
             
             if let fieldName = sortDescriptor.key {
                 var sortDescriptionDictionary: [String: Any] =  [CKSortDescriptorDictionary.fieldName: fieldName.bridge(),

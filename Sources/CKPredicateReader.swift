@@ -43,7 +43,8 @@ struct CKPredicateReader {
         }
         
         func takeString(begin: Index, end: Index) -> String {
-            return buffer[buffer.index(buffer.startIndex, offsetBy: begin)..<buffer.index(buffer.startIndex, offsetBy: end)]
+            let range = buffer.index(buffer.startIndex, offsetBy: begin) ..< buffer.index(buffer.startIndex, offsetBy: end)
+            return String(buffer[range])
         }
     }
     

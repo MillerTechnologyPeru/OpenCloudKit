@@ -1,15 +1,33 @@
+// swift-tools-version:5.0
 import PackageDescription
 
 let package = Package(
     name: "OpenCloudKit",
+    products: [
+        .library(
+            name: "OpenCloudKit",
+            targets: ["OpenCloudKit"]
+        )
+    ],
     dependencies: [
-        .Package(url: "https://github.com/vapor/clibressl.git", majorVersion: 1),
-        .Package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", majorVersion: 0),
-        .Package(url:  "https://github.com/DanToml/Jay.git", majorVersion: 1)
-        ]
+        .package(url: "https://github.com/vapor/clibressl.git", .branch("master")),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .branch("master"))
+    ],
+    targets: [
+        .target(
+            name: "OpenCloudKit",
+            dependencies: [
+                "CLibreSSL",
+                "CryptoSwift"
+            ],
+            path: "./Sources"
+        ),
+        .testTarget(
+            name: "OpenCloudKitTests",
+            dependencies: ["OpenCloudKit"]
+        )
+    ],
+    swiftLanguageVersions: [.v5]
 )
 
-#if os(Linux)
-    package.exclude.append("Sources/CLLocation+OpenCloudKit.swift")
-#endif
  
